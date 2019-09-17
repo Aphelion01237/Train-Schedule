@@ -30,9 +30,9 @@ function updateDisplay(trainObject){
         addedEntry.text(trainObject[key]);
         addedRow.append(addedEntry);
     }
-    $("#trainList").append(addedRow);
+    $("#trains").append(addedRow);
 }
-$("#toAddButton").on("click",function(event){
+$('#submit').on("click",function(event){
     event.preventDefault();
     var name = $("#addedTrainName").val().trim();
     var destination = $("#addedDestination").val().trim();
@@ -50,28 +50,28 @@ $("#toAddButton").on("click",function(event){
     $("#addedFrequency").val("");
     $("#addedTime").val("");
     
-    var trainToBeAdded = mathMagic(name,destination,frequency,time);
+    var newTrain = timeConverter(name,destination,frequency,time);
 })
-function mathMagic(name,destination,frequency,time){
+function timeConverter(name,destination,frequency,time){
     var firstTimeConverted = moment(time, "HH:mm").subtract(1, "years");
     var currentTime = moment();
     var diffTime = currentTime.diff(firstTimeConverted, "minutes");
     var minutesAway = diffTime % frequency;
     var minutesToNext = frequency - minutesAway;
     var nextArrival = moment().add(minutesToNext, "minutes");
-    var trainToBeAdded = new trainObject.initialize(name,destination,frequency,nextArrival.format("hh:mm","a"),minutesToNext);
-    return trainToBeAdded;
+    var newTrain = new trainObject.initialize(name,destination,frequency,nextArrival.format("hh:mm","a"),minutesToNext);
+    return newTrain;
 }
-dataRef.ref().on("child_added", function(childSnapshot) {
-    var storedTrain = mathMagic(childSnapshot.val().name,childSnapshot.val().destination,childSnapshot.val().frequency,childSnapshot.val().time);
+dataRef.ref().on("child_added", function(snapshot) {
+    var storedTrain = timeConverter(snapshot.val().name,snapshot.val().destination,snapshot.val().frequency,snapshot.val().time);
    updateDisplay(storedTrain);
   }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
   });
   setInterval( function(){
-    $("#trainList").empty();
-    dataRef.ref().on("child_added", function(childSnapshot) {
-        var storedTrain = mathMagic(childSnapshot.val().name,childSnapshot.val().destination,childSnapshot.val().frequency,childSnapshot.val().time);
+    $("#trains").empty();
+    dataRef.ref().on("child_added", function(snapshot) {
+        var storedTrain = timeConverter(snapshot.val().name,snapshot.val().destination,snapshot.val().frequency,snapshot.val().time);
        updateDisplay(storedTrain);
       }, function(errorObject) {
         console.log("Errors handled: " + errorObject.code);
