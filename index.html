@@ -1,14 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>TRAINS</title>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="./assets/javascript/schedulescript.js"></script>
 </head>
+
 <body>
-    <p>hello world</p>
+    <div class="container">
+        <div class="jumbotron text-center p-3 mt-2 " style="background: darkgray; color: white">
+            <h1 class="display-4" style="font-weight:450">Trains Be Happening</h1>
+        </div>
+        <div class="card  my-2" style="border:solid darkcyan; border-width: 2px;">
+
+            <div class="card-header" style="background:darkcyan; color:white">Current Train Schedule</div>
+            <div class="card m-2" id="topArticles">
+                <div class="card">
+                    <!-- table goes here -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Train Name</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Frequency (mins)</th>
+                                <th scope="col">Next Arrival</th>
+                                <th scope="col">Minutes Away</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trainList">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card pb-2" style="border:solid darkcyan; border-width: 2px;">
+            <div class="card-header mg-lg " style="background:darkcyan; color: whitesmoke ">Add Train</div>
+            <div class="container mt-2">
+                <form>
+                    <div class="form-group">
+                        <label for="addedTrainName">Train Name</label>
+                        <input id="addedTrainName" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="addedDestination">Destination</label>
+                        <input id="addedDestination" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="addedTime">Frist Train Time (HH:mm - military time)</label>
+                        <input type="text" class="form-control" id="addedTime">
+                    </div>
+                    <div class="form-group">
+                        <label for="addedFrequency">Frequency</label>
+                        <input type="text" class="form-control" id="addedFrequency">
+                    </div>
+                    <button id="toAddButton" class="btn btn-dark" type="submit">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </body>
+
 </html>
